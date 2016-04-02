@@ -7,8 +7,9 @@ class Meme(db.Document):
     title = db.StringField(max_length=255, required=True)
     description = db.StringField(required=True)
     numLikes = db.IntField(min_value=0)
-    url = db.URLField()
-    tags = db.ListField(db.StringField(max_length=30, required=True))
+    url = db.StringField()
+    native_tags = db.ListField(db.StringField(max_length=30, required=True))
+    foreign_tags = db.ListField(db.StringField(max_length=30, required=True))
 
     def __unicode__(self):
         return self.title
