@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+    <style>
+      #jumbo_Back
+      {
+        background-image:url({{url_for("static",filename="background.jpg")}});
+        border: 1px solid #51a600;
+        border-bottom-right-radius:0px;
+        border-bottom-left-radius:0px;
+        margin-bottom: 0px;
+        border-bottom: none;
+      }
+
+      #navigation
+      {
+        border: 1px solid #51a600;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 0px;
+        border-top:none;
+        background-color:#ffffff;
+      }
+
+      ul.nav a{ curser:pointer; }
+
+
+
+      img
+      {
+        width:100%;
+        height:auto;
+      }
+
+    </style>
+    
+  </head>
+  <body>
+    <div class="container">
+    <div class="jumbotron" id="jumbo_Back">
+    <p><br /> <br /></p>
+    </div>
+
+    <nav class="navbar navbar-default">
+      <div class="container-fluit">
+        <div class="navbar=header">
+          <a class="navbar-brand" href="#" style="margin-right: 20px">WeMeme</a>
+        <ul class="nav navbar-nav" id="test">
+          <li class="active"><a href={{url_for('index')}} >Meme</a><li>
+          <li ><a href="{{url_for('AboutUs')}}">About US</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    
+
+
+    {% block body %}{% endblock %}
+        
+
+    </div>
+    
+    </div>
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{url_for('static',filename='css/js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+  $(function(){
+    $('.nav a').filter(function(){return this.href==location.href}).parent().addClass('active').siblings().removeClass('active')
+    
+  })
+  </script>
+  </body>
+</html>

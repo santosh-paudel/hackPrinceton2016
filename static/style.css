@@ -1,0 +1,5 @@
+#jumbo_Back
+{
+	/*background-image:url('{{url_for("""static""",filename="""background.png""")}}')"*/
+	background-color: #10b235;
+}
