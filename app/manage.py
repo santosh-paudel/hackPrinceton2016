@@ -22,7 +22,7 @@ class Hello(Command):
     def run(self):
         print("Hey there")
 
-
+# Batch input for images, one by one, but batch
 class InputBatchImages(Command):
     "Used to input batch images"
     def run(self):
@@ -69,9 +69,56 @@ class InputBatchImages(Command):
         print("\nBatch input terminated")
         print("\n-----------------------------------------------------\n")
 
+class UserInputBatch(Command):
+    "Used to enter batch users"
+    def run(self):
+        userInput = ""
+        print("\n-----------------------------------------------------\n")
+        print("Beginning batch user input")
+        print("Prepare to upload many users to db")
+        print("Enter exit() to stop")
+        print("String lists are comma delimited\n")
+        while userInput != "exit()":
+            userInput = input("\tfirstName:  ")
+            if userInput == "exit()":
+                break
+            _firstName = userInput
+            userInput = input("\tLastName:  ")
+            if userInput == "exit()":
+                break
+            _lastName = userInput
+            userInput = input("\temail:  ")
+            if userInput == "exit()":
+                break
+            _email = str(userInput)
+            userInput = input("\tuserName:  ")
+            if userInput == "exit()":
+                break
+            _userName = userInput
+            userInput = input("\tpassword:  ")
+            if userInput == "exit()":
+                break
+            _password = userInput
+            userInput = ""
+            print("\n")
+
+            user = User(firstName=_firstName, lastName=_lastName, email=_email, userName=_userName, password=_password)
+            user.save()
+
+
+
 
 manager.add_command('batchimages', InputBatchImages())
+manager.add_command('batchusers', UserInputBatch())
 manager.add_command('hello', Hello())
+
+
+
+
+
+
+
+
 
 
 

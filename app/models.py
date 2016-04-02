@@ -19,3 +19,26 @@ class Meme(db.Document):
         'indexes': ['-created_at'],
         'ordering': ['-created_at']
     }
+
+
+class User(db.Document):
+    created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
+    firstName = db.StringField(max_length=100, required=True)
+    lastName = db.StringField(max_length=100, required=True)
+    email = db.EmailField(max_length=100, required=True)
+    userName = db.StringField(max_length=20, required=True)
+    password = db.StringField(max_length=20, required=True)
+
+    def __unicode__(self):
+        return self.title
+    
+    meta = {
+        'allow_inheritance': True,
+        'indexes': ['-created_at'],
+        'ordering': ['-created_at']
+    }
+
+
+
+
+
