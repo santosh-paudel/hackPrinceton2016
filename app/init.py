@@ -6,12 +6,10 @@ import datetime
 app=Flask(__name__)
 
 app = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {'DB': "my_tumble_log"}
+app.config["MONGODB_SETTINGS"] = {'DB': "wememe"}
 app.config["SECRET_KEY"] = "KeepThisS3cr3t"
 
 db = MongoEngine(app)
-
-
 
 @app.route('/')
 def index():
