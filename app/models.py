@@ -7,6 +7,8 @@ class Meme(db.Document):
     title = db.StringField(max_length=255, required=True)
     description = db.StringField(required=True)
     numLikes = db.IntField(min_value=0)
+    numShares = db.IntField(min_value=0)
+    numDownloads = db.IntField(min_value=0)
     url = db.StringField()
     native_tags = db.ListField(db.StringField(max_length=30, required=True))
     foreign_tags = db.ListField(db.StringField(max_length=30, required=True))
@@ -31,7 +33,7 @@ class User(db.Document):
 
     def __unicode__(self):
         return self.title
-    
+
     meta = {
         'allow_inheritance': True,
         'indexes': ['-created_at'],
@@ -39,6 +41,16 @@ class User(db.Document):
     }
 
 
+class Tag(db.Document):
+    tag = db.StringField(max_length=30, required=True)
+    locale = db.StringField(max_length=30, required=True)
 
+    def __unicode__(self):
+        return self.title
 
+class Locale(db.Document):
+    locale = db.StringField(max_length=30, required=True)
+
+    def __unicode__(self):
+        return self.title
 

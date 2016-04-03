@@ -17,13 +17,13 @@ manager.add_command("runserver", Server(
 )
 
 
-class Hello(Command):
-    "Prints hello world"
-    def run(self):
-        print("Hey there")
+
+# Define Command scripts
+
+
 
 # Batch input for images, one by one, but batch
-class InputBatchImages(Command):
+class ImageInputBatch(Command):
     "Used to input batch images"
     def run(self):
         userInput = ""
@@ -47,6 +47,14 @@ class InputBatchImages(Command):
             if userInput == "exit()":
                 break
             _numLikes = str(userInput)
+            userInput = input("\tnumShares:  ")
+            if userInput == "exit()":
+                break
+            _numShares = str(userInput)
+            userInput = input("\tnumDownloads:  ")
+            if userInput == "exit()":
+                break
+            _numDownloads = str(userInput)
             userInput = input("\turl:  ")
             if userInput == "exit()":
                 break
@@ -62,8 +70,10 @@ class InputBatchImages(Command):
             userInput = ""
             print("\n")
 
-            meme = Meme(title=_title, description=_description, numLikes=_numLikes, url=_url, native_tags=_nativeTags, foreign_tags=_foreignTags)
+            meme = Meme(title=_title, description=_description, numLikes=_numLikes, url=_url, native_tags=_nativeTags, foreign_tags=_foreignTags, numShares=_numShares, numDownloads=_numDownloads)
             meme.save()
+            print("\tData entry saved.")
+            print("\t-------------------------\n")
 
 
         print("\nBatch input terminated")
@@ -104,14 +114,89 @@ class UserInputBatch(Command):
 
             user = User(firstName=_firstName, lastName=_lastName, email=_email, userName=_userName, password=_password)
             user.save()
+            print("\tData entry saved.")
+            print("\t-------------------------\n")
+
+
+        print("\nBatch input terminated")
+        print("\n-----------------------------------------------------\n")
+
+
+class TagInputBatch(Command):
+    "Used to enter batch tags"
+    def run(self):
+        userInput = ""
+        print("\n-----------------------------------------------------\n")
+        print("Beginning batch tag input")
+        print("Prepare to upload many tag to db")
+        print("Enter exit() to stop")
+        print("String lists are comma delimited\n")
+        while userInput != "exit()":
+            userInput = input("\tTag:  ")
+            if userInput == "exit()":
+                break
+            _tag = userInput
+            userInput = input("\tLocale:  ")
+            if userInput == "exit()":
+                break
+            _locale = userInput
+            userInput = ""
+            print("\n")
+
+            tag = Tag(tag=_tag, locale=_locale)
+            tag.save()
+            print("\tData entry saved.")
+            print("\t-------------------------\n")
+
+
+        print("\nBatch input terminated")
+        print("\n-----------------------------------------------------\n")
+
+
+class LocaleInputBatch(Command):
+    "Used to enter batch tags"
+    def run(self):
+        userInput = ""
+        print("\n-----------------------------------------------------\n")
+        print("Beginning batch locale input")
+        print("Prepare to upload many locales to db")
+        print("Enter exit() to stop")
+        print("String lists are comma delimited\n")
+        while userInput != "exit()":
+            userInput = input("\tLocale:  ")
+            if userInput == "exit()":
+                break
+            _locale = userInput
+
+            userInput = ""
+            print("\n")
+
+            __locale = Locale(locale=_locale)
+            __locale.save()
+            print("\tData entry saved.")
+            print("\t-------------------------\n")
+
+
+        print("\nBatch input terminated")
+        print("\n-----------------------------------------------------\n")
+
+
+
+class test(Command):
+    "A quickie testie"
+    def run(self):
+        print(db.Tag.count())
 
 
 
 
-manager.add_command('batchimages', InputBatchImages())
+# Add commands to the manager here
+
+manager.add_command('batchimages', ImageInputBatch())
 manager.add_command('batchusers', UserInputBatch())
-manager.add_command('hello', Hello())
-
+manager.add_command('batchtags', TagInputBatch())
+manager.add_command('batchlocales', LocaleInputBatch())
+manager.add_command('test', test())
 
 
 
