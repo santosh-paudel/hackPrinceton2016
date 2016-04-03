@@ -38,7 +38,9 @@
 
         </div>
         <div class="row" style="padding: 50px;">
-            <button onclick="" id="nextButton">Like</button>
+        <form method="post" action="/">
+            <button type="submit" id="nextButton" name="Like" value="{{URLid}}">Like</button>
+            </form>
             <button onclick="myFunction()" id="nextButton">Next</button>
 
         </div>
@@ -54,7 +56,6 @@
 
     <script type="text/javascript" src="{{url_for('static',filename='js1/jquery-1.9.1.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static',filename='js1/jssor.slider.mini.js')}}"></script>
-    <!-- use jssor.slider.debug.js instead for debug -->
    
     </div>
 </div>

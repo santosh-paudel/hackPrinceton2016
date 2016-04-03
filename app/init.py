@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request
 from flask.ext.mongoengine import MongoEngine
+from werkzeug.wrappers import Request, Response
+from werkzeug.datastructures import ImmutableMultiDict
 import os, sys
 import datetime
 #from Markov import URLEngine
@@ -31,18 +33,47 @@ class Dictionary(db.EmbeddedDocument):
 # @app.route('/login/')
 # def userLogin():
 # 	return render_template("pictures.html");
+"""
+@app.route('/like', methods=["GET", "POST"])
+def like():
+
+    if request.method=="POST":
+        imd = request.form
+        print(imd)
+        print(imd.get('Like'))
+
+    return render_template('index.html')
+"""
+@app.route('/', methods=["POST"])
+def like():
+    from app.models import User, Meme, Tag, Locale
+    from app.Markov import URLEngine
+
+    imd = request.form
+    _url = imd.get('Like')
+    print("GOT IT")
+    print(imd)
+    print(imd.get('Like'))
+
+    img = Meme.objects(url=_url)[0]
+    tagList = img.native_tags
+
+    print(User.objects(userName="nmoon")[0].localeCount)
+
+    for elem in tagList:
+        print(elem)
+        User.objects(userName="nmoon")[0].localeCount(key=elem)[0].value[0] = User.objects(userName="nmoon")[0].localeCount(key=elem)[0].value[0] + 1
+
+    return render_template('index.html', URLid =_url)
+
+
 
 
 @app.route('/')
-@app.route('/', methods=["GET", "POST"])
 def index(URLid =None):
-
-    if request.method=="POST":
-        print(request.form['name'])
-
-
     from app.models import User
     from app.Markov import URLEngine
+
     userList = User.objects(userName="nmoon")
     user = userList[0]
     Engine = URLEngine(user)

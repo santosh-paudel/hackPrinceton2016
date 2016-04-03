@@ -29,6 +29,7 @@ class URLEngine:
             self.totalInfluences = self.totalInfluences + elem.value
 
         for elem in self.user.localeCount:
+            print(elem.key + "\t" + str(elem.value))
             if elem.value == 0:
                 continue
             d = elem.key
