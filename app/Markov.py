@@ -43,7 +43,6 @@ class UserDomain:
 
 
     def getNextMemeURL(self):
-        print("Generating next meme ...")
         _locale = self.generateLocale()
         tagList = Tag.objects(locale=_locale)
         if not tagList:
@@ -56,24 +55,20 @@ class UserDomain:
 
 
     def generateLocale(self):
-        print("Generating random locale ...")
         dartBoard = []
         for i in self.nodes:
             for j in range(0, i.probability):
                 dartBoard.append(i.descriptor)
         index = random.randrange(0, len(dartBoard))
-        print("Random index: " + str(index))
         return dartBoard[index]
 
 
     def generateRandomURL(self):
-        print("Default tag generation ...")
         memes = Meme.objects;
         index = random.randrange(0, len(memes))
         return memes[index].url
 
     def generateRandomURLWithTags(self, tags):
-        print("Probabilistic tag generation ...")
         # Probability of a choice from disjoint domain is always atleast 30%
         disjointProbability = int(math.ceil(len(tags)/3))
         if disjointProbability < 2:

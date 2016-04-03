@@ -271,12 +271,27 @@ class MemeInputBatchFile(Command):
 
 
 
-class test(Command):
-    "A quickie testie"
+class markov(Command):
+    "Run a user through the markov model"
     def run(self):
-        m = UserDomain(User.objects(userName="nmoon")[0], Locale, "Locale")
+        print("\n-----------------------------------------------------\n")
+        print("Preparing to run use through Markov model")        
+        print("Use exit() to quit")
+        userInput = ""
+        username = input("Please enter a username: ")
+        userList = User.objects(userName=username)
+        if not userList:
+            print("\tInvalid username.")
+            return
+
+        user = userList[0]
+        while userInput != "exit()":
+            tmp = UserDomain(user, Locale, "Locale")
+            userInput = input("Press any key to continue, exit() to quit: ")
 
 
+        print("\nMarkov process terminated")
+        print("\n-----------------------------------------------------\n")        
 
 
 
@@ -286,7 +301,7 @@ manager.add_command('batchimages', ImageInputBatch())
 manager.add_command('batchusers', UserInputBatch())
 manager.add_command('batchtags', TagInputBatch())
 manager.add_command('batchlocales', LocaleInputBatch())
-manager.add_command('test', test())
+manager.add_command('markov', markov())
 manager.add_command('batchmemesfile', MemeInputBatchFile())
 
 
