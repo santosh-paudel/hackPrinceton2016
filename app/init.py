@@ -51,7 +51,6 @@ def like():
 
     imd = request.form
     _url = imd.get('Like')
-    print("GOT IT")
     print(imd)
     print(imd.get('Like'))
 
@@ -62,8 +61,6 @@ def like():
 
     for elem in tagList:
         print(elem)
-        User.objects(userName="nmoon")[0].localeCount(key=elem)[0].value[0] = User.objects(userName="nmoon")[0].localeCount(key=elem)[0].value[0] + 1
-
     return render_template('index.html', URLid =_url)
 
 
