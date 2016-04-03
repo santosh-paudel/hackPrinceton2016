@@ -205,11 +205,68 @@ class LocaleInputBatch(Command):
 class MemeInputBatchFile(Command):
     "Loading in batch memes from file"
     def run(self):
-        f = open("/Users/NateMoon/Downloads/images_and_data.txt", "r")
-        line = 
+        print("\n-----------------------------------------------------\n")
+        print("Beginning batch meme input from file")
+        print("Prepare to upload many memes to db")
+        print("String lists are comma delimited\n")
+        path = input("\tPlease enter a path to file: ")
+        f = open(path, "r")
+        if f.closed:
+            print("\tFile error.  Terminating command.")
+            return
 
+        content = f.read()
+        objects = content.split("~\n")
+        lines = []
+        for elem in objects:
+            lines.append(elem.split("\n"))
 
+        counter = 1
+        for elem in lines:
+            print(elem)
+            _title = elem[0]
+            if _title == "":
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _description = elem[1]
+            if _description == "":
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _url = elem[2]
+            if _url == "":
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _nativeTags = elem[3].split(",")
+            if _nativeTags == []:
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _numLikes = int(elem[4])
+            if _numLikes < 0:
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _numShares = int(elem[5])
+            if _numShares < 0:
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
+            _numDownloads = int(elem[6])
+            if _numDownloads < 0:
+                print("\tObject " + str(counter) + " failed to load")
+                counter = counter+1
+                continue
 
+            meme = Meme(title=_title, description=_description, numLikes=_numLikes, url=_url, native_tags=_nativeTags, foreign_tags=[], numShares=_numShares, numDownloads=_numDownloads)
+            meme.save()
+            print("\tObject " + str(counter) + " saved successfully")
+            counter = counter + 1
+
+        print("\nBatch input terminated")
+        print("\n-----------------------------------------------------\n")
 
 
 
@@ -231,12 +288,6 @@ manager.add_command('batchtags', TagInputBatch())
 manager.add_command('batchlocales', LocaleInputBatch())
 manager.add_command('test', test())
 manager.add_command('batchmemesfile', MemeInputBatchFile())
-
-
-
-
-
-
 
 
 

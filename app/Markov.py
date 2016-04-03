@@ -1,8 +1,11 @@
 
 from init import db
+from app.models import *
 import copy
+import random
+import math
 
-class MarkovNode:
+class Node:
     def __init__(self, _descriptor, _probability):
         self.descriptor = _descriptor
         self.probability = _probability
@@ -17,25 +20,84 @@ class UserDomain:
     def __init__(self, _user, _collection, _collectionString):
         self.collection = _collection
         self.nodes = []
-        print(len(collection.objects))
-
+        self.user = _user
+        self.totalProbability = 0
         self.totalInfluences = 0
-        for elem in _user.localeCount:
-            totalInfluences = totalInfluences + elem.value
 
         for elem in _user.localeCount:
+            self.totalInfluences = self.totalInfluences + elem.value
+
+        for elem in self.user.localeCount:
             if elem.value == 0:
                 continue
             d = elem.key
-            p = int((elem.value/totalInfluences)*100)
-            m = MarkovNode(d, p)
-            nodes.append(copy.copy(m))
+            p = int((elem.value/self.totalInfluences)*100)
+            m = Node(d, p)
+            self.nodes.append(copy.copy(m))
+            self.totalProbability += p
 
-        for elem in nodes:
-            print(elem.descriptor + "\t" + str(elem.probability))
+        print(str(self.totalProbability))
+
+        print(self.getNextMemeURL())
 
 
-    
+
+    def getNextMemeURL(self):
+        print("Generating next meme ...")
+        _locale = self.generateLocale()
+        tagList = Tag.objects(locale=_locale)
+        if not tagList:
+            return self.generateRandomURL()
+        else:
+            return self.generateRandomURLWithTags(tagList)
+        
+
+
+
+
+    def generateLocale(self):
+        print("Generating random locale ...")
+        dartBoard = []
+        for i in self.nodes:
+            for j in range(0, i.probability):
+                dartBoard.append(i.descriptor)
+        index = random.randrange(0, len(dartBoard))
+        print("Random index: " + str(index))
+        return dartBoard[index]
+
+
+    def generateRandomURL(self):
+        print("Default tag generation ...")
+        memes = Meme.objects;
+        index = random.randrange(0, len(memes))
+        return memes[index].url
+
+    def generateRandomURLWithTags(self, tags):
+        print("Probabilistic tag generation ...")
+        # Probability of a choice from disjoint domain is always atleast 30%
+        disjointProbability = int(math.ceil(len(tags)/3))
+        if disjointProbability < 2:
+            disjointProbability = 2
+
+        dartBoard = []
+        for i in range(0, disjointProbability):
+            dartBoard.append("_Disjoint_")
+
+        for elem in tags:
+            dartBoard.append(elem.tag)
+
+        index = random.randrange(0, len(dartBoard))
+
+        if dartBoard[index] == "_Disjoint_":
+            return self.generateRandomURL()
+        else:
+            memes = Meme.objects(native_tags=dartBoard[index])
+            if len(memes) != 0:
+                tmp = random.randrange(0, len(memes))
+                return memes[tmp].url
+            else:
+                return self.generateRandomURL()
+
 
 
 
