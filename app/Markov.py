@@ -36,11 +36,6 @@ class UserDomain:
             self.nodes.append(copy.copy(m))
             self.totalProbability += p
 
-        print(str(self.totalProbability))
-
-        print(self.getNextMemeURL())
-
-
 
     def getNextMemeURL(self):
         _locale = self.generateLocale()
@@ -49,9 +44,6 @@ class UserDomain:
             return self.generateRandomURL()
         else:
             return self.generateRandomURLWithTags(tagList)
-        
-
-
 
 
     def generateLocale(self):
