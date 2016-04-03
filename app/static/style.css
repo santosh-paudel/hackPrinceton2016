@@ -10,6 +10,13 @@
   
       ul.nav a{ curser:pointer; }
 
+body
+{
+  height: 700px;
+  background: black;
+  background-size: cover;
+}
+
       img
       {
         width:100%;
@@ -87,3 +94,66 @@
   }
 
   
+.imageContainer
+{
+  height: 800px;
+  text-align: center;
+  padding: 80px;
+}
+
+#MainMeme
+{
+  display: block;
+  max-height:400px;
+  width: auto;
+  height: auto;
+margin: auto;  
+}
+
+#nextButton
+{
+  height: 50px;
+  width: 200px;
+  border-radius: 5px;
+  background: rgba(200, 200, 200, .6);
+  color: black;
+  font-family: "Times New Roman", serif;
+  font-size: 1.6em;
+  border: none;
+}
+
+
+
+#imageRow
+{
+  height: 400px;
+  padding: 0px;
+}
+
+h2
+{
+  font-size: 2em;
+  margin: 0px;
+  padding: 0px;
+  text-align: center;
+  color: black;
+}
+
+button
+{
+  margin: 10px;
+}
+
+.fa-heart
+{
+  margin-left: 5px;
+}
+
+form
+{
+  margin: 0px;
+  padding: 0px;
+  border: 1px white solid;
+  width: 200px;
+}
+

@@ -6,113 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WeMime</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='style.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet" />
     <link href="{{url_for('static',filename='style.css')}}" rel="stylesheet" />
+    <script src="style.js"></script>
+    <script>
+    function myFunction() {
+        location.reload();
+    }
 
-
+</script>
 </head>
-<div class="back">
-<div class="container">
-    <div class="jumbotron" id="jumbo_Back">
-    <p><br /> <br /></p>
-    </div>
+
+
+<body style="padding:0px; margin:0px; font-family:Arial, sans-serif">
 
 <nav class="navbar navbar-inverse" data-spy="affix" data-offset-top="197" style="margin-bottom: 0px;">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#" style="margin-right: 20px">WeMeme</a>
+          <a class="navbar-brand" href="#" style="margin-right: 20px">MemeDB</a>
         <ul class="nav navbar-nav" id="test">
-          <li class="active"><a href="{{url_for('index')}}" >Meme</a><li>
+          <li class="active"><a href="{{url_for('index')}}" >The Dankest</a><li>
         </ul>
       </div>
     </nav>  
+
+    <div class="imageContainer">
+        <div class="row" id="imageRow">
+            
+            <img src="{{ URLid }}" id="MainMeme">
+
+        </div>
+        <div class="row" style="padding: 50px;">
+            <button onclick="" id="nextButton">Like</button>
+            <button onclick="myFunction()" id="nextButton">Next</button>
+
+        </div>
+
+
     </div>
+
+
 
     <div class="container" style="margin-top: -5px;">
     <div class="jumbotron" id= "jumbo">
-    <body style="padding:0px; margin:0px; background-color:#fff;font-family:Arial, sans-serif">
+    <h2>Memes + Machine Learning + MongoDB = MemeDB</h2>
 
     <script type="text/javascript" src="{{url_for('static',filename='js1/jquery-1.9.1.min.js')}}"></script>
     <script type="text/javascript" src="{{url_for('static',filename='js1/jssor.slider.mini.js')}}"></script>
     <!-- use jssor.slider.debug.js instead for debug -->
-    <script>
-        jQuery(document).ready(function ($) {
-            
-            var jssor_1_SlideshowTransitions = [
-              {$Duration:1200,$Opacity:2}
-            ];
-            
-            var jssor_1_options = {
-              $AutoPlay: true,
-              $SlideshowOptions: {
-                $Class: $JssorSlideshowRunner$,
-                $Transitions: jssor_1_SlideshowTransitions,
-                $TransitionsOrder: 1
-              },
-              $ArrowNavigatorOptions: {
-                $Class: $JssorArrowNavigator$
-              },
-              $BulletNavigatorOptions: {
-                $Class: $JssorBulletNavigator$
-              }
-            };
-            
-            var jssor_1_slider = new $JssorSlider$("jssor_1", jssor_1_options);
-            
-            //responsive code begin
-            //you can remove responsive code if you don't want the slider scales while window resizing
-            function ScaleSlider() {
-                var refSize = jssor_1_slider.$Elmt.parentNode.clientWidth;
-                if (refSize) {
-                    refSize = Math.min(refSize, 600);
-                    jssor_1_slider.$ScaleWidth(refSize);
-                }
-                else {
-                    window.setTimeout(ScaleSlider, 30);
-                }
-            }
-            ScaleSlider();
-            $(window).bind("load", ScaleSlider);
-            $(window).bind("resize", ScaleSlider);
-            $(window).bind("orientationchange", ScaleSlider);
-            //responsive code end
-        });
-    </script>
-
-
-    <div id="jssor_1" style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
-        <!-- Loading Screen -->
-        <div data-u="loading" style="position: absolute; top: 0px; left: 0px;">
-            <div style="filter: alpha(opacity=70); opacity: 0.7; position: absolute; display: block; top: 0px; left: 0px; width: 100%; height: 100%;"></div>
-            <div style="position:absolute;display:block;background:url("url_for('static',filename='img/loading.gif')}}" no-repeat center center;top:0px;left:0px;width:100%;height:100%;"></div>
-        </div>
-        <div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
-            <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="{{url_for('static',filename='img/02.jpg')}}" />
-            </div>
-            <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="{{url_for('static',filename='img/04.jpg')}}" />
-            </div>
-            <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="{{url_for('static',filename='img/05.jpg')}}" />
-            </div>
-            <div data-p="112.50" style="display: none;">
-                <img data-u="image" src="{{url_for('static',filename='img/09.jpg')}}" />
-            </div>
-            <a data-u="ad" href="http://www.jssor.com" style="display:none">Responsive Slider</a>
-        
-        </div>
-        <!-- Bullet Navigator -->
-        <div data-u="navigator" class="jssorb05" style="bottom:16px;right:16px;" data-autocenter="1">
-            <!-- bullet navigator item prototype -->
-            <div data-u="prototype" style="width:16px;height:16px;"></div>
-        </div>
-        <!-- Arrow Navigator -->
-        <span data-u="arrowleft" class="jssora12l" style="top:0px;left:0px;width:30px;height:46px;" data-autocenter="2"></span>
-        <span data-u="arrowright" class="jssora12r" style="top:0px;right:0px;width:30px;height:46px;" data-autocenter="2"></span>
-
+   
     </div>
-
-</body>
 </div>
+</body>
 </html>

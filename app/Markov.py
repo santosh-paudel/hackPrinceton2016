@@ -1,5 +1,4 @@
 
-from init import db
 from app.models import *
 import copy
 import random
