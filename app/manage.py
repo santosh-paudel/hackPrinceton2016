@@ -313,7 +313,7 @@ class markov(Command):
 
         user = userList[0]
         while userInput != "exit()":
-            tmp = UserDomain(user, Locale, "Locale")
+            tmp = URLEngine(user)
             print(tmp.getNextMemeURL())
             userInput = input("Press any key to continue, exit() to quit: ")
 

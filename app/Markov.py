@@ -18,9 +18,9 @@ class Node:
 #----------------------------------------------------------
 
 
-class UserDomain:
-    def __init__(self, _user, _collection, _collectionString):
-        self.collection = _collection
+class URLEngine:
+    def __init__(self, _user):
+        self.collection = Locale
         self.nodes = []
         self.user = _user
         self.totalProbability = 0
