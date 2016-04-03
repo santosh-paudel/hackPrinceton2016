@@ -221,50 +221,77 @@ class MemeInputBatchFile(Command):
         for elem in objects:
             lines.append(elem.split("\n"))
 
+        memeList = []
         counter = 1
+        failList = []
+
         for elem in lines:
             print(elem)
             _title = elem[0]
             if _title == "":
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _description = elem[1]
             if _description == "":
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _url = elem[2]
             if _url == "":
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _nativeTags = elem[3].split(",")
             if _nativeTags == []:
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _numLikes = int(elem[4])
             if _numLikes < 0:
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _numShares = int(elem[5])
             if _numShares < 0:
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
             _numDownloads = int(elem[6])
             if _numDownloads < 0:
                 print("\tObject " + str(counter) + " failed to load")
+                failList.append(counter)
                 counter = counter+1
                 continue
-
             meme = Meme(title=_title, description=_description, numLikes=_numLikes, url=_url, native_tags=_nativeTags, foreign_tags=[], numShares=_numShares, numDownloads=_numDownloads)
-            meme.save()
-            print("\tObject " + str(counter) + " saved successfully")
+            memeList.append(copy.copy(meme))
+            print("\tObject " + str(counter) + " successfully loaded and cached")
             counter = counter + 1
 
+        if not failList:
+            for elem in memeList:
+                elem.save()
+            print("\nMeme batch successfully saved to db.")
+        else:
+            print("Errors:")
+            for i in failList:
+                print("\n\tObject " + str(counter) + " failed to load")
+            print("")
+            userInput = input("Would you like to load successful objects to db? (y/n): )
+            if userInput == 'y':
+                for elem in memeList:
+                    elem.save()
+                print("\nMeme batch successfully saved to db.")
+            else:
+                print("No objects stored in db.")
+
+        print("")
         print("\nBatch input terminated")
         print("\n-----------------------------------------------------\n")
 

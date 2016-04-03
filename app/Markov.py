@@ -5,11 +5,24 @@ import copy
 import random
 import math
 
+#----------------------------------------------------------
+
+
 class Node:
     def __init__(self, _descriptor, _probability):
         self.descriptor = _descriptor
         self.probability = _probability
 
+
+
+#----------------------------------------------------------
+
+
+class SessionLog:
+    def __init__(self):
+        self.log = []
+
+    def add
 
 
 
