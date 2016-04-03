@@ -39,7 +39,7 @@ class URLEngine:
             self.totalProbability += p
 
 
-    def getNextMemeURL(self):
+    def getNextURL(self):
         _locale = self.generateLocale()
         tagList = Tag.objects(locale=_locale)
         if not tagList:
