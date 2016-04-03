@@ -18,17 +18,6 @@ class Node:
 #----------------------------------------------------------
 
 
-class SessionLog:
-    def __init__(self):
-        self.log = []
-
-    def add
-
-
-
-#----------------------------------------------------------
-
-
 class UserDomain:
     def __init__(self, _user, _collection, _collectionString):
         self.collection = _collection

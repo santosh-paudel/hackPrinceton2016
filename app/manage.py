@@ -283,7 +283,7 @@ class MemeInputBatchFile(Command):
             for i in failList:
                 print("\n\tObject " + str(counter) + " failed to load")
             print("")
-            userInput = input("Would you like to load successful objects to db? (y/n): )
+            userInput = input("Would you like to load successful objects to db? (y/n): ")
             if userInput == 'y':
                 for elem in memeList:
                     elem.save()
@@ -330,7 +330,7 @@ manager.add_command('batchusers', UserInputBatch())
 manager.add_command('batchtags', TagInputBatch())
 manager.add_command('batchlocales', LocaleInputBatch())
 manager.add_command('markov', markov())
-manager.add_command('batchmemesfile', MemeInputBatchFile())
+manager.add_command('filebatchimages', MemeInputBatchFile())
 
 
 
