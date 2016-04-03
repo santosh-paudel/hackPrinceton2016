@@ -15,14 +15,18 @@ db = MongoEngine(app)
 def index():
     return render_template('index.html')
 
-@app.route('/AboutUs/')
-def AboutUs():
-    return render_template('AboutUs.html')
+# @app.route('/AboutUs/')
+# def AboutUs():
+#     return render_template('AboutUs.html')
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return "<p>Page not found </p>"
+# @app.errorhandler(404)
+# def page_not_found(e):
+#     return "<p>Page not found </p>"
 
+
+# @app.route('/login/')
+# def userLogin():
+# 	return render_template("pictures.html");
 
 print('Latest build at ' + str(datetime.datetime.now().time().hour) + ":" 
     + str(datetime.datetime.now().time().minute) + ":" 
