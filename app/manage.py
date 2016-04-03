@@ -5,7 +5,8 @@ from flask_script import Manager, Server, Command
 from init import app, db
 from flask import Response
 from app.models import *
-
+from Markov import *
+import copy
 
 manager = Manager(app)
 
@@ -16,9 +17,25 @@ manager.add_command("runserver", Server(
     host = '0.0.0.0')
 )
 
+#------------ System tools -------------------
 
 
-# Define Command scripts
+
+def retrieveLocaleDictionary():
+    userInput = ""
+    localeList = []
+    for elem in Locale.objects:
+        dict = Dictionary()
+        userInput = input("\tEnter number of influences on locale " + elem.locale + ": ")
+        dict.key=elem.locale
+        dict.value=userInput
+        localeList.append(copy.copy(dict))
+
+    return localeList
+
+
+
+
 
 
 
@@ -111,8 +128,11 @@ class UserInputBatch(Command):
             _password = userInput
             userInput = ""
             print("\n")
+            _localCount = retrieveLocaleDictionary()
+            userInput = ""
+            print("\n")
 
-            user = User(firstName=_firstName, lastName=_lastName, email=_email, userName=_userName, password=_password)
+            user = User(firstName=_firstName, lastName=_lastName, email=_email, userName=_userName, password=_password, localeCount=_localCount)
             user.save()
             print("\tData entry saved.")
             print("\t-------------------------\n")
@@ -182,10 +202,23 @@ class LocaleInputBatch(Command):
 
 
 
+class MemeInputBatchFile(Command):
+    "Loading in batch memes from file"
+    def run(self):
+        f = open("/Users/NateMoon/Downloads/images_and_data.txt", "r")
+        line = 
+
+
+
+
+
+
+
 class test(Command):
     "A quickie testie"
     def run(self):
-        print(db.Tag.count())
+        m = UserDomain(User.objects(userName="nmoon")[0], Locale, "Locale")
+
 
 
 
@@ -197,6 +230,7 @@ manager.add_command('batchusers', UserInputBatch())
 manager.add_command('batchtags', TagInputBatch())
 manager.add_command('batchlocales', LocaleInputBatch())
 manager.add_command('test', test())
+manager.add_command('batchmemesfile', MemeInputBatchFile())
 
 
 

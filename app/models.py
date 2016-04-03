@@ -2,6 +2,16 @@ import datetime
 from flask import url_for
 from init import db
 
+class Dictionary(db.EmbeddedDocument):
+    key = db.StringField(max_length=30, required=True)
+    value = db.IntField(min_value=0)
+
+    def __unicode__(self):
+        return self.key
+
+
+
+
 class Meme(db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
     title = db.StringField(max_length=255, required=True)
@@ -30,9 +40,10 @@ class User(db.Document):
     email = db.EmailField(max_length=100, required=True)
     userName = db.StringField(max_length=20, required=True)
     password = db.StringField(max_length=20, required=True)
+    localeCount = db.ListField(db.EmbeddedDocumentField(Dictionary, required=True), required=True)
 
     def __unicode__(self):
-        return self.title
+        return self.userName
 
     meta = {
         'allow_inheritance': True,
@@ -46,11 +57,11 @@ class Tag(db.Document):
     locale = db.StringField(max_length=30, required=True)
 
     def __unicode__(self):
-        return self.title
+        return self.tag
 
 class Locale(db.Document):
     locale = db.StringField(max_length=30, required=True)
 
     def __unicode__(self):
-        return self.title
+        return self.locale
 
